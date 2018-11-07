@@ -1,4 +1,6 @@
-/* global shoppingList, store */
+/* global shoppingList, store, Item */
+/*eslint-env jquery*/
+'use strict';
 
 $(document).ready(function() {
   shoppingList.bindEventListeners();
