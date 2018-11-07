@@ -71,8 +71,8 @@ const shoppingList = (function(){
         store.addItem(newItem);
         render();
       });
-      store.addItem(newItemName);
-      render();
+      // store.addItem(newItemName);
+      // render();
     });
   }
 
@@ -85,7 +85,14 @@ const shoppingList = (function(){
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      store.findAndToggleChecked(id);
+      const toggleItem = store.items.find(item => item.id === id);
+      // store.findAndToggleChecked(id, {item.checked};
+      if (toggleItem.checked) {
+        api.updateItem(id, { checked: false }, () => store.findAndUpdate(id, { checked: false }));
+      } else {
+        api.updateItem(id, { checked: true }, () => store.findAndUpdate(id, { checked: true }));
+      }
+      
       render();
     });
   }
@@ -106,9 +113,12 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('submit', '.js-edit-item', event => {
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
-      const itemName = $(event.currentTarget).find('.shopping-item').val();
-      store.findAndUpdateName(id, itemName);
+      const newName = $(event.currentTarget).find('.shopping-item').val();
+      // store.findAndUpdateName(id, newName);
       store.setItemIsEditing(id, false);
+      api.updateItem(id, { name: newName }, () => store.findAndUpdate(id, { name: newName }));
+      //   store.findAndUpdate(id, { name: newName })
+      // });
       render();
     });
   }
