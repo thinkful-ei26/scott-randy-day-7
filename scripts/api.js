@@ -21,9 +21,22 @@ const api = (function() {
       method: 'POST',
       contentType: 'application/json',
       data: newItem,
-      success: (callback) => {
-        console.log(callback);
+      success: function(data) {
+        console.log(data);
+        callback(data);
+      }
+    });
+  }
 
+  function updateItem(id, updateData, callback) {
+    $.ajax({
+      url: `${BASE_URL}/items/${id}`,
+      method: 'PATCH',
+      contentType: 'application/json',
+      data: JSON.stringify(updateData),
+      success: function(data) {
+        console.log(data);
+        callback(data);
       }
     });
   }
@@ -31,6 +44,7 @@ const api = (function() {
   return {
     getItems,
     createItem,
+    updateItem,
   };
 
 }() );
