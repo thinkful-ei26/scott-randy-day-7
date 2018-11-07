@@ -7,6 +7,7 @@ const api = (function() {
 
   function getItems(callback) {
     $.getJSON('https://thinkful-list-api.herokuapp.com/scott-randys/items', callback);
+    
   }
 
 
